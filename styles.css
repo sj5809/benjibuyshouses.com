@@ -42,7 +42,7 @@
     .hero::after { content: ''; position: absolute; bottom: -60px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(212,160,23,0.07) 0%, transparent 70%); pointer-events: none; }
     .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; position: relative; z-index: 1; }
     .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(212,160,23,0.15); border: 1px solid rgba(212,160,23,0.3); color: var(--gold-light); font-size: 0.82rem; font-weight: 600; padding: 6px 14px; border-radius: 40px; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 20px; }
-    .hero-badge::before { content: '✦'; font-size: 0.7rem; }
+    .hero-badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--gold-light); }
     .hero h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 900; line-height: 1.1; color: var(--white); letter-spacing: -1px; margin-bottom: 20px; }
     .hero h1 .grad { background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold-bright)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .hero-sub { font-size: 1.12rem; color: rgba(255,255,255,0.75); margin-bottom: 36px; max-width: 480px; line-height: 1.7; }
@@ -375,3 +375,76 @@
       .nav-links .nav-cta { margin-top: 10px; text-align: center; width: auto; }
       .nav-hamburger { display: flex; }
     }
+
+    /* ===== HAND DRAWN ICON TILES (one style everywhere) ===== */
+    .ico { display: block; width: 24px; height: 24px; flex-shrink: 0; }
+    .link-pills .ico { width: 22px; height: 22px; }
+    .value-icon, .how-icon, .diff-icon, .sit-icon, .county-icon, .detail-icon, .benefit-icon, .qf-icon, .success-icon, .faq-cat-icon {
+      display: grid; place-items: center; flex-shrink: 0;
+      background: linear-gradient(160deg, #f3f8ff 0%, #dbe7f9 100%);
+      border: 1px solid #c8d8f1; color: var(--navy);
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.95), inset 0 -3px 0 rgba(11,30,69,0.06), 0 6px 14px rgba(11,30,69,0.14);
+    }
+    .value-icon, .how-icon, .diff-icon, .sit-icon { width: 62px; height: 62px; min-width: 62px; border-radius: 17px; margin-bottom: 18px; font-size: 0; }
+    .county-icon { width: 54px; height: 54px; border-radius: 15px; }
+    .detail-icon, .benefit-icon { width: 42px; height: 42px; min-width: 42px; border-radius: 12px; }
+    .qf-icon { width: 40px; height: 40px; min-width: 40px; border-radius: 11px; }
+    .success-icon { border-radius: 24px; }
+    .faq-cat-icon { width: 46px; height: 46px; border-radius: 13px; }
+    .detail-icon .ico, .benefit-icon .ico, .qf-icon .ico { width: 72%; height: 72%; }
+    .section.navy .diff-icon, .testimonials-section .diff-icon, .panel-dark .detail-icon { border-color: rgba(255,255,255,0.5); }
+
+    /* ===== INTERACTIVE REVEAL CARDS ===== */
+    .flip { position: relative; overflow: hidden; cursor: pointer; min-height: 238px; display: flex; flex-direction: column; outline: none; }
+    .diff-grid.four .flip { min-height: 286px; }
+    .flip-front { display: flex; flex-direction: column; flex: 1; }
+    .flip-front h3 { margin-bottom: 0; }
+    .flip-hint { margin-top: auto; padding-top: 16px; display: inline-flex; align-items: center; gap: 8px; font-size: 0.84rem; font-weight: 700; color: var(--gold-text); }
+    .flip-hint::before { content: '+'; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid currentColor; display: grid; place-items: center; font-size: 0.95rem; line-height: 1; }
+    .diff-card .flip-hint { color: var(--gold-light); }
+    .hint-touch { display: none; }
+    .flip-back { position: absolute; inset: 0; padding: 26px 24px; background: var(--navy); color: rgba(255,255,255,0.9); display: flex; flex-direction: column; justify-content: center; transform: translateY(101%); transition: transform 0.38s cubic-bezier(.2,.8,.2,1); overflow-y: auto; border-radius: inherit; }
+    .flip-back::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); }
+    .flip-title { font-size: 1.06rem; font-weight: 800; color: #fff; margin-bottom: 10px; line-height: 1.3; }
+    .flip .flip-back p { font-size: 0.95rem; line-height: 1.62; color: rgba(255,255,255,0.88); }
+    .flip .flip-back .card-more { color: var(--gold-light); margin-top: 14px; }
+    .diff-card.flip .flip-back { background: #16357a; }
+    .flip.is-open .flip-back, .flip:focus-visible .flip-back { transform: none; }
+    .flip:focus-visible { box-shadow: 0 0 0 3px var(--gold-light); }
+    @media (hover: hover) {
+      .flip:hover .flip-back { transform: none; }
+      .flip:hover { transform: translateY(-3px); }
+    }
+    @media (hover: none) {
+      .hint-hover { display: none; }
+      .hint-touch { display: inline; }
+      /* Link cards on phones: show everything so one tap goes to the page */
+      a.flip { min-height: 0; }
+      a.flip .flip-hint, a.flip .flip-title { display: none; }
+      a.flip .flip-back, a.diff-card.flip .flip-back { position: static; transform: none; background: none; padding: 0; margin-top: 10px; display: block; }
+      a.flip .flip-back::before { display: none; }
+      a.sit-card.flip .flip-back p { color: var(--text-mid); font-size: 0.88rem; }
+      a.sit-card.flip .flip-back .card-more { color: var(--gold-text); }
+      a.diff-card.flip .flip-back p { color: rgba(255,255,255,0.68); }
+      a.diff-card.flip .flip-back .card-more { color: var(--gold-light); }
+    }
+    @media (prefers-reduced-motion: reduce) { .flip-back { transition: none; } }
+
+    /* ===== FAQ, CLEANER AND MORE GROWN UP ===== */
+    .faq-item, .faq-item:first-child, .faq-item:first-of-type { border: 1px solid rgba(11,30,69,0.1); border-radius: 14px; background: var(--white); margin-bottom: 12px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .faq-item:hover { border-color: rgba(11,30,69,0.22); }
+    .faq-item[open] { border-color: rgba(212,160,23,0.6); box-shadow: 0 8px 28px rgba(11,30,69,0.08); }
+    summary.faq-q { padding: 20px 22px; font-size: 1.02rem; }
+    .faq-icon { background: none; border: 1.5px solid rgba(11,30,69,0.28); color: var(--navy); width: 30px; height: 30px; min-width: 30px; font-weight: 500; font-size: 1.15rem; transition: transform 0.25s, background 0.2s, color 0.2s; }
+    details[open] .faq-icon { background: var(--navy); border-color: var(--navy); color: var(--white); }
+    .faq-a { padding: 0 22px 22px; border-top: 1px solid rgba(11,30,69,0.07); padding-top: 16px; margin: 0 0 0; max-width: none; }
+    .faq-cat { display: flex; align-items: center; gap: 14px; font-size: 1.55rem; font-weight: 900; color: var(--navy); letter-spacing: -0.4px; margin-bottom: 18px; }
+    .value-icon .ico, .how-icon .ico, .diff-icon .ico, .sit-icon .ico { width: 40px; height: 40px; }
+    .county-icon .ico { width: 36px; height: 36px; }
+    .detail-icon .ico, .benefit-icon .ico { width: 30px; height: 30px; }
+    .qf-icon .ico { width: 28px; height: 28px; }
+    .faq-cat-icon .ico { width: 32px; height: 32px; }
+    .success-icon .ico { width: 56px; height: 56px; }
+    .flip .flip-front { min-height: 0; }
+    @media (max-width: 768px) { div.flip { min-height: 210px; } }
+    .diff-card { background-color: #1a2c50; }
